@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Course;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Admin\CourseLivewire;
+use App\Http\Controllers\Admin\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +20,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return view('admin.dashboard');
+
+
+})->name('dashboard');
+
+Route::get('admin/course',CourseLivewire::class)->name('viewCourse');
 
 require __DIR__.'/auth.php';

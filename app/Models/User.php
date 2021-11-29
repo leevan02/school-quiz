@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Course;
+use App\Models\CourseSchedule;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -17,9 +19,13 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+    protected $table='users';
     protected $fillable = [
         'name',
         'email',
+        'Role_as',
+        'course_id',
+        'courseSchedule_id',
         'password',
     ];
 
@@ -41,4 +47,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function course()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function courseSchedule()
+    {
+        return $this->hasMany(CourseSchedule::class);
+    }
 }
